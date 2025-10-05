@@ -14,7 +14,7 @@ variable private_key_location {}
 resource "aws_vpc" "mola-vpc" {
     cidr_block = var.vpc_cidr_block
     tags ={
-        Name: "${var.env_prefix}"
+        Name: "${var.env_prefix}-vpc"
     }
 }
 
@@ -23,7 +23,7 @@ resource "aws_subnet" "mola-subnet-01" {
     cidr_block = var.subnet_cidr_block
     availability_zone = var.avail_zone
     tags = {
-        Name: "${var.env_prefix}"
+        Name: "${var.env_prefix}-subnet"
     }
 }
 
