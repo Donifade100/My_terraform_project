@@ -35,7 +35,7 @@ data "aws_ami" "latest-al2023-linux-image" {
 
   filter {
     name   = "name"
-    values = ["var.image_name"]
+    values = [var.image_name]
   }
 
   filter {
@@ -60,7 +60,7 @@ resource "aws_instance" "mola-server" {
     associate_public_ip_address = true
     key_name = aws_key_pair.mola-ssh-key.key_name
 
-    user_data = file("entry-script.sh")
+    user_data = file("${path.module}/entry-script.sh")
         
     user_data_replace_on_change = true
 
