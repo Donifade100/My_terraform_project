@@ -1,5 +1,5 @@
 resource "aws_default_security_group" "default_sg" {
-    vpc_id = aws_vpc.mola-vpc.id
+    vpc_id = var.vpc_id
 
     ingress {
         from_port = 22
@@ -35,7 +35,7 @@ data "aws_ami" "latest-al2023-linux-image" {
 
   filter {
     name   = "name"
-    values = ["al2023-ami-ecs-hvm-2023.*-kernel-*-x86_64"]
+    values = ["var.image_name"]
   }
 
   filter {
@@ -53,7 +53,7 @@ resource "aws_instance" "mola-server" {
     ami = data.aws_ami.latest-al2023-linux-image.id
     instance_type = var.instance_type
 
-    subnet_id = module.mola-subnet.subnet.id
+    subnet_id = var.subnet_id
     vpc_security_group_ids = [aws_default_security_group.default_sg.id]
     availability_zone = var.avail_zone
 
@@ -63,22 +63,6 @@ resource "aws_instance" "mola-server" {
     user_data = file("entry-script.sh")
         
     user_data_replace_on_change = true
-
-    # connection {
-    #     type = "ssh"
-    #     host = self.public_ip
-    #     user = "ec2-user"
-    #     private_key = file(var.private_key_location)
-    # }
-
-    # provisioner "file" {
-    #     source = "entry-script.sh"
-    #     destination = "/home/ec2-user/mola-server-entry-script.sh"
-    # }
-
-    # provisioner "remote-exec" {
-    #     inline = ["/home/ec2-user/mola-server-entry-script.sh"]
-    # }
 
     tags = {
         Name: "${var.env_prefix}-server"

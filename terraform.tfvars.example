@@ -1,0 +1,9 @@
+# terraform.tfvars".example
+vpc_cidr_block = "example_vpc_cidr_block"
+subnet_cidr_block = "example_subnet_cidr_block"
+avail_zone = "example_avail_zone"
+env_prefix = "example_env_prefix"
+my_ip = "example_my_ip"
+instance_type = "example_instance_type"
+public_key_location = "example_public_key_location"
+image_name = "example_image_name"
