@@ -29,7 +29,7 @@ module "mola-eks" {
 
   eks_managed_node_groups = {
     dev = {
-        instance_types = ["t2.small"]
+        instance_types = ["t3.micro"]
         ami_type       = "AL2023_x86_64_STANDARD"
         min_size       = 1
         max_size       = 3
